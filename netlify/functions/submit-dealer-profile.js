@@ -23,6 +23,7 @@ const FIELDS = {
   contactName: "fldSgphtQ7adztzg0", // singleLineText
   contactEmail: "fldckDJtX94GKZwwS", // email
   contactPhone: "fld066OnwSUoWMcZO", // phoneNumber
+  usedCarVolume: "fldYePOhukyWSbzaM", // number
 };
 
 const REQUIRED = ["name", "appraisalTool", "crm", "dms", "firstEntry", "pricer", "negotiator", "keysPlacement", "contactName", "contactEmail"];
@@ -112,6 +113,10 @@ exports.handler = async (event) => {
   if (payload.contactName) fields[FIELDS.contactName] = String(payload.contactName).trim();
   if (payload.contactEmail) fields[FIELDS.contactEmail] = String(payload.contactEmail).trim();
   if (payload.contactPhone) fields[FIELDS.contactPhone] = String(payload.contactPhone).trim();
+  if (payload.usedCarVolume !== undefined && payload.usedCarVolume !== null && String(payload.usedCarVolume).trim() !== "") {
+    const vol = Number(payload.usedCarVolume);
+    if (!Number.isNaN(vol)) fields[FIELDS.usedCarVolume] = vol;
+  }
 
   try {
     const resp = await fetch(
