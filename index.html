@@ -134,18 +134,16 @@
     border-color:var(--accent-bright);background:rgba(0,175,255,0.08);
     box-shadow:0 0 0 1px var(--accent-bright);
   }
-  /* Real brand logos sit on an independent white plate (no border/box) so they
-     stay legible against the dark page — sized as a wide bounding box so both
-     square marks and wide wordmarks (CDK, Vin Solutions, etc.) scale to fill it. */
+  /* Every choice-card icon — real brand logo or generic SVG — floats directly
+     on the card with no box/border/background of its own. The card itself is
+     the only bordered element in the selection. Icons sized 40% larger than
+     the original box-based treatment. */
   .choice-chip{
-    width:112px;height:64px;border-radius:8px;background:#ffffff;
+    width:auto;height:auto;background:transparent;border-radius:0;
     display:flex;align-items:center;justify-content:center;flex-shrink:0;
   }
-  .choice-chip img{width:88%;height:78%;object-fit:contain;}
-  /* Generic icons (Other/Corporate/roles) have no box at all — just the icon,
-     50% larger than before, floating directly on the card. */
-  .choice-chip.generic{width:auto;height:auto;background:transparent;border-radius:0;}
-  .choice-chip.generic svg{width:36px;height:36px;stroke:var(--accent-bright);}
+  .choice-chip img{height:70px;width:auto;max-width:160px;object-fit:contain;}
+  .choice-chip.generic svg{width:50px;height:50px;stroke:var(--accent-bright);}
   .choice-label{
     font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--text);
   }
