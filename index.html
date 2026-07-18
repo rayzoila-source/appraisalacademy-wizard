@@ -247,7 +247,7 @@
   </p>
 
   <div class="callout">
-    <b>Takes about 3 minutes.</b> Can be filled out by dealership staff or a Virtual Automotiv
+    <b>Takes about 1 minute.</b> Can be filled out by dealership staff or a Virtual Automotiv
     team member on their behalf. If you're not sure about an answer, leave a note in the
     "anything else" field and we'll follow up.
   </div>
@@ -770,9 +770,17 @@
       <input type="url" id="f-website" name="website" placeholder="https://" autocomplete="url">
     </div>
 
-    <div class="field-panel required">
+    <div class="field-panel">
       <div class="field-head">
         <span class="field-index">12</span>
+        <label for="f-volume">How many used cars do you sell on average per month? <span class="opt">(optional)</span></label>
+      </div>
+      <input type="number" id="f-volume" name="usedCarVolume" min="0" step="1" inputmode="numeric">
+    </div>
+
+    <div class="field-panel required">
+      <div class="field-head">
+        <span class="field-index">13</span>
         <label for="f-contact-name">Contact Name <span class="req">*</span></label>
       </div>
       <input type="text" id="f-contact-name" name="contactName" required autocomplete="name">
@@ -780,7 +788,7 @@
 
     <div class="field-panel required">
       <div class="field-head">
-        <span class="field-index">13</span>
+        <span class="field-index">14</span>
         <label for="f-contact-email">Contact Email <span class="req">*</span></label>
       </div>
       <input type="email" id="f-contact-email" name="contactEmail" required autocomplete="email">
@@ -788,7 +796,7 @@
 
     <div class="field-panel">
       <div class="field-head">
-        <span class="field-index">14</span>
+        <span class="field-index">15</span>
         <label for="f-contact-phone">Contact Phone <span class="opt">(optional)</span></label>
       </div>
       <input type="tel" id="f-contact-phone" name="contactPhone" autocomplete="tel">
