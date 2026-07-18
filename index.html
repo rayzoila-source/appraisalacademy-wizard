@@ -115,6 +115,11 @@
     border:1px solid var(--border);width:22px;height:22px;display:flex;align-items:center;justify-content:center;
     flex-shrink:0;
   }
+  @keyframes flash-index{
+    0%,100%{background:transparent;color:var(--accent-bright);box-shadow:0 0 0 0 rgba(0,175,255,0.55);}
+    50%{background:var(--accent-bright);color:#00131f;box-shadow:0 0 0 6px rgba(0,175,255,0);}
+  }
+  #start .field-index{animation:flash-index 1.4s ease-in-out infinite;}
   label{
     font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;
     color:var(--text);font-weight:600;
