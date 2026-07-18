@@ -1,0 +1,159 @@
+<!--
+  VIRTUAL AUTOMOTIV — APPRAISAL ACADEMY DEALER PROFILE
+  =====================================================
+  BEFORE THIS GOES LIVE, DO THIS ONE STEP IN AIRTABLE:
+
+  1. Open the base: https://airtable.com/appFbuGvhQAVK9ixz
+  2. Go to the "Dealerships" table.
+  3. Click the "+" next to the view tabs at the top → choose "Form".
+  4. Name the view "Dealer Profile - Appraisal Academy".
+  5. Make sure these fields are on the form, in this order, and edit each
+     field's "Question" text on the right-hand panel to match:
+       - Name                 → "Dealership Name"
+       - Website              → "Dealership Website" (optional)
+       - Appraisal Tool       → "Which appraisal tool do you use?"
+       - First Entry          → "Who first enters the car into the system?"
+       - Entry System         → "Is it entered into the CRM, or directly into the appraisal tool?"
+       - Pricer               → "Who puts the number on the car?"
+       - Negotiator           → "Who negotiates the number with the customer?"
+       - Stock-In / Bullpen   → "Who stocks the car in and puts it in the bullpen?"
+       - Notes                → "Anything else we should know about your process?" (optional)
+  6. Click "Share form" (top right of the form editor) → toggle it on →
+     copy the link (looks like https://airtable.com/appFbuGvhQAVK9ixz/shrXXXXXXXXXXXXXX).
+  7. Paste that link below, replacing AIRTABLE_FORM_URL_HERE (search for it,
+     appears twice: in the iframe src and the "open directly" fallback link).
+  8. Save this file and hand it to whoever manages virtualautomotiv.com to
+     publish as a new page (suggested path: /dealer-profile).
+
+  NOTE: this page uses two real logo assets pulled from virtualautomotiv.com
+  (va-monogram.png and va-wordmark.png). They must be uploaded to the same
+  folder as this HTML file (or update the <img src> paths to wherever they
+  end up, e.g. /assets/va-monogram.png).
+
+  Optional polish once published (Team/Business Airtable plans only):
+  in the form's Share settings you can hide the "Powered by Airtable" mark
+  and set a background color — set it to #000000 to blend with this page.
+-->
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dealer Profile — Appraisal Academy | Virtual Automotiv</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#000000;
+    --text:#f5f5f5;
+    --text-dim:#9aa0a6;
+    --accent:#0081EC;
+    --accent-bright:#00AFFF;
+    --border:rgba(0,129,236,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:'Orbitron',sans-serif;}
+  a{color:inherit;text-decoration:none;}
+
+  header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:20px 40px;border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .logo{display:flex;align-items:center;gap:12px;}
+  .logo img.monogram{height:36px;width:auto;display:block;}
+  .logo img.wordmark{height:20px;width:auto;display:block;}
+  header nav a{font-size:12px;letter-spacing:1.5px;color:var(--text-dim);}
+  header nav a:hover{color:var(--accent-bright);}
+
+  main{max-width:900px;margin:0 auto;padding:70px 24px 100px;}
+
+  .eyebrow{
+    display:inline-block;font-size:12px;letter-spacing:3px;color:var(--accent-bright);
+    border:1px solid var(--border);padding:6px 14px;margin-bottom:24px;
+  }
+  h1{
+    font-size:clamp(28px,5vw,44px);line-height:1.15;letter-spacing:1px;
+    margin:0 0 18px;text-transform:uppercase;
+  }
+  h1 .accent{color:var(--accent-bright);}
+  p.lede{color:var(--text-dim);font-size:15px;line-height:1.7;max-width:640px;margin:0 0 40px;font-family:Arial,Helvetica,sans-serif;}
+
+  .callout{
+    border:1px solid var(--border);padding:18px 22px;margin-bottom:44px;
+    font-family:Arial,Helvetica,sans-serif;font-size:13px;color:var(--text-dim);line-height:1.6;
+  }
+  .callout b{color:var(--text);}
+
+  .frame{
+    position:relative;border:1px solid var(--border);padding:2px;
+  }
+  .frame::before,.frame::after{
+    content:'';position:absolute;width:16px;height:16px;
+    border-color:var(--accent-bright);
+  }
+  .frame::before{top:-1px;left:-1px;border-top:2px solid var(--accent-bright);border-left:2px solid var(--accent-bright);}
+  .frame::after{bottom:-1px;right:-1px;border-bottom:2px solid var(--accent-bright);border-right:2px solid var(--accent-bright);}
+
+  iframe{
+    width:100%;height:1700px;border:none;display:block;background:#ffffff;
+  }
+
+  .fallback{
+    text-align:center;margin-top:20px;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:var(--text-dim);
+  }
+  .fallback a{color:var(--accent-bright);border-bottom:1px solid var(--accent-bright);}
+
+  footer{
+    border-top:1px solid rgba(255,255,255,0.08);padding:30px 40px;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
+    font-size:11px;letter-spacing:1px;color:var(--text-dim);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img class="monogram" src="va-monogram.png" alt="VA">
+    <img class="wordmark" src="va-wordmark.png" alt="Virtual Automotiv">
+  </div>
+  <nav>
+    <a href="https://www.virtualautomotiv.com">← BACK TO VIRTUALAUTOMOTIV.COM</a>
+  </nav>
+</header>
+
+<main>
+  <span class="eyebrow">⌐ APPRAISAL ACADEMY ¬</span>
+  <h1>Tell us how <span class="accent">your store</span> runs appraisals.</h1>
+  <p class="lede">
+    Every dealership handles trades a little differently — different tools, different people,
+    different handoffs. Fill this out once and we'll build your Appraisal Academy training path
+    around exactly how your store operates, not a generic script.
+  </p>
+
+  <div class="callout">
+    <b>Takes about 3 minutes.</b> Can be filled out by dealership staff or a Virtual Automotiv
+    team member on their behalf. If you're not sure about an answer, leave a note in the
+    "anything else" field at the end and we'll follow up.
+  </div>
+
+  <div class="frame">
+    <iframe
+      src="AIRTABLE_FORM_URL_HERE"
+      title="Appraisal Academy Dealer Profile">
+    </iframe>
+  </div>
+
+  <p class="fallback">
+    Form not loading? <a href="AIRTABLE_FORM_URL_HERE" target="_blank" rel="noopener">Open it directly →</a>
+  </p>
+</main>
+
+<footer>
+  <div>VIRTUAL AUTOMOTIV</div>
+  <div>WINNING AT SELLING CARS · APPRAISAL ACADEMY · PHONE POP · DAY ONE · TRADEINTRACKER.IO</div>
+</footer>
+
+</body>
+</html>
