@@ -1,38 +1,16 @@
 <!--
   VIRTUAL AUTOMOTIV — APPRAISAL ACADEMY DEALER PROFILE
   =====================================================
-  BEFORE THIS GOES LIVE, DO THIS ONE STEP IN AIRTABLE:
+  Live form wired up: Dealerships table → "Dealer Profile - Appraisal Academy"
+  form view, shared as "Anyone on the web", embedded below.
+  Base: https://airtable.com/appFbuGvhQAVK9ixz
 
-  1. Open the base: https://airtable.com/appFbuGvhQAVK9ixz
-  2. Go to the "Dealerships" table.
-  3. Click the "+" next to the view tabs at the top → choose "Form".
-  4. Name the view "Dealer Profile - Appraisal Academy".
-  5. Make sure these fields are on the form, in this order, and edit each
-     field's "Question" text on the right-hand panel to match:
-       - Name                 → "Dealership Name"
-       - Website              → "Dealership Website" (optional)
-       - Appraisal Tool       → "Which appraisal tool do you use?"
-       - First Entry          → "Who first enters the car into the system?"
-       - Entry System         → "Is it entered into the CRM, or directly into the appraisal tool?"
-       - Pricer               → "Who puts the number on the car?"
-       - Negotiator           → "Who negotiates the number with the customer?"
-       - Stock-In / Bullpen   → "Who stocks the car in and puts it in the bullpen?"
-       - Notes                → "Anything else we should know about your process?" (optional)
-  6. Click "Share form" (top right of the form editor) → toggle it on →
-     copy the link (looks like https://airtable.com/appFbuGvhQAVK9ixz/shrXXXXXXXXXXXXXX).
-  7. Paste that link below, replacing AIRTABLE_FORM_URL_HERE (search for it,
-     appears twice: in the iframe src and the "open directly" fallback link).
-  8. Save this file and hand it to whoever manages virtualautomotiv.com to
-     publish as a new page (suggested path: /dealer-profile).
+  Deployed via GitHub (rayzoila-source/appraisalacademy-wizard) → Netlify
+  (appraisalacademy-wizard project) → wizard.appraisalacademy.net.
 
-  NOTE: this page uses two real logo assets pulled from virtualautomotiv.com
-  (va-monogram.png and va-wordmark.png). They must be uploaded to the same
-  folder as this HTML file (or update the <img src> paths to wherever they
-  end up, e.g. /assets/va-monogram.png).
-
-  Optional polish once published (Team/Business Airtable plans only):
-  in the form's Share settings you can hide the "Powered by Airtable" mark
-  and set a background color — set it to #000000 to blend with this page.
+  Optional polish (Team/Business Airtable plans only): in the form's Share
+  settings you can hide the "Powered by Airtable" mark and set a background
+  color to #000000 to blend with this page.
 -->
 <!DOCTYPE html>
 <html lang="en" class="dark">
@@ -140,13 +118,13 @@
 
   <div class="frame">
     <iframe
-      src="AIRTABLE_FORM_URL_HERE"
+      src="https://airtable.com/appFbuGvhQAVK9ixz/pagdbqcR2gD2JH7zd/form"
       title="Appraisal Academy Dealer Profile">
     </iframe>
   </div>
 
   <p class="fallback">
-    Form not loading? <a href="AIRTABLE_FORM_URL_HERE" target="_blank" rel="noopener">Open it directly →</a>
+    Form not loading? <a href="https://airtable.com/appFbuGvhQAVK9ixz/pagdbqcR2gD2JH7zd/form" target="_blank" rel="noopener">Open it directly →</a>
   </p>
 </main>
 
