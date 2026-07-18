@@ -117,16 +117,16 @@
   select option{background:#15161a;color:var(--text);}
   ::placeholder{color:#5c6066;}
 
-  /* Choice-button group (appraisal tool) */
+  /* Choice-button group (icon/logo based questions) */
   .choice-group{
     display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
   }
   @media (max-width:640px){ .choice-group{ grid-template-columns:repeat(2,1fr); } }
   .choice-input{position:absolute;opacity:0;width:0;height:0;pointer-events:none;}
   .choice-card{
-    display:flex;flex-direction:column;align-items:center;gap:10px;
+    display:flex;flex-direction:column;align-items:center;gap:14px;
     background:var(--input-bg);border:1px solid var(--input-border);
-    padding:16px 10px;cursor:pointer;transition:border-color .15s, background .15s, box-shadow .15s;
+    padding:22px 12px;cursor:pointer;transition:border-color .15s, background .15s, box-shadow .15s;
     text-align:center;
   }
   .choice-card:hover{border-color:rgba(0,175,255,0.5);}
@@ -134,13 +134,18 @@
     border-color:var(--accent-bright);background:rgba(0,175,255,0.08);
     box-shadow:0 0 0 1px var(--accent-bright);
   }
+  /* Real brand logos sit on an independent white plate (no border/box) so they
+     stay legible against the dark page — sized as a wide bounding box so both
+     square marks and wide wordmarks (CDK, Vin Solutions, etc.) scale to fill it. */
   .choice-chip{
-    width:48px;height:48px;border-radius:8px;background:#ffffff;
-    display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;
+    width:112px;height:64px;border-radius:8px;background:#ffffff;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
   }
-  .choice-chip img{width:34px;height:34px;object-fit:contain;}
-  .choice-chip.generic{background:var(--panel);border:1px solid var(--input-border);}
-  .choice-chip.generic svg{width:24px;height:24px;stroke:var(--accent-bright);}
+  .choice-chip img{width:88%;height:78%;object-fit:contain;}
+  /* Generic icons (Other/Corporate/roles) have no box at all — just the icon,
+     50% larger than before, floating directly on the card. */
+  .choice-chip.generic{width:auto;height:auto;background:transparent;border-radius:0;}
+  .choice-chip.generic svg{width:36px;height:36px;stroke:var(--accent-bright);}
   .choice-label{
     font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--text);
   }
@@ -170,6 +175,41 @@
   }
   .success-panel h3{font-family:'Orbitron',sans-serif;margin:0 0 8px;letter-spacing:1px;text-transform:uppercase;}
   .success-panel p{color:var(--text-dim);font-size:14px;margin:0;}
+
+  /* Org flow chart review step (shown after the form, before final confirm) */
+  .flow-panel{
+    display:none;border:1px solid var(--border);background:rgba(0,129,236,0.04);padding:36px 28px;
+  }
+  .flow-panel.show{display:block;}
+  .flow-panel h3{
+    font-family:'Orbitron',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:1px;
+    font-size:18px;margin:0 0 6px;color:var(--text);text-align:center;
+  }
+  .flow-panel p.flow-sub{
+    color:var(--text-dim);font-size:13px;text-align:center;margin:0 0 32px;
+  }
+  .flow-chart{display:flex;flex-direction:column;align-items:center;margin:0 0 32px;}
+  .flow-node{
+    width:100%;max-width:440px;background:var(--panel);border:1px solid var(--panel-border);
+    border-left:2px solid var(--accent-bright);padding:14px 22px;text-align:left;
+  }
+  .flow-node .flow-label{
+    display:block;font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:1.5px;
+    text-transform:uppercase;color:var(--text-dim);margin-bottom:4px;
+  }
+  .flow-node .flow-value{
+    display:block;font-family:'Orbitron',sans-serif;font-size:15px;letter-spacing:.5px;
+    color:var(--accent-bright);font-weight:700;text-transform:uppercase;
+  }
+  .flow-arrow{color:var(--accent-bright);padding:2px 0;}
+  .flow-arrow svg{width:16px;height:16px;display:block;margin:0 auto;}
+  .flow-actions{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;}
+  .ghost-btn{
+    font-family:'Orbitron',sans-serif;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+    font-size:12px;background:transparent;color:var(--text-dim);border:1px solid var(--input-border);
+    padding:13px 24px;cursor:pointer;transition:border-color .15s, color .15s;
+  }
+  .ghost-btn:hover{border-color:var(--accent-bright);color:var(--accent-bright);}
 
   footer{
     border-top:1px solid rgba(255,255,255,0.08);padding:30px 40px;
@@ -224,7 +264,7 @@
         <label>
           <input class="choice-input" type="radio" name="appraisalTool" value="AutoHub" required>
           <div class="choice-card">
-            <span class="choice-chip"><img src="autohub-logo.svg" alt="AutoHub" style="width:40px;height:auto;"></span>
+            <span class="choice-chip"><img src="autohub-logo.svg" alt="AutoHub"></span>
             <span class="choice-label">AutoHub</span>
           </div>
         </label>
@@ -282,35 +322,35 @@
         <label>
           <input class="choice-input" type="radio" name="crm" value="Elead" required>
           <div class="choice-card">
-            <span class="choice-chip"><img src="elead-logo.svg" alt="Elead" style="width:40px;height:auto;"></span>
+            <span class="choice-chip"><img src="elead-logo.svg" alt="Elead"></span>
             <span class="choice-label">Elead</span>
           </div>
         </label>
         <label>
           <input class="choice-input" type="radio" name="crm" value="Drive Centric" required>
           <div class="choice-card">
-            <span class="choice-chip"><img src="drivecentric-logo.svg" alt="Drive Centric" style="width:44px;height:auto;"></span>
+            <span class="choice-chip"><img src="drivecentric-logo.svg" alt="Drive Centric"></span>
             <span class="choice-label">Drive Centric</span>
           </div>
         </label>
         <label>
           <input class="choice-input" type="radio" name="crm" value="DealerDocket" required>
           <div class="choice-card">
-            <span class="choice-chip"><img src="dealerdocket-logo.svg" alt="DealerDocket" style="width:42px;height:auto;"></span>
+            <span class="choice-chip"><img src="dealerdocket-logo.svg" alt="DealerDocket"></span>
             <span class="choice-label">DealerDocket</span>
           </div>
         </label>
         <label>
           <input class="choice-input" type="radio" name="crm" value="Vin Solutions" required>
           <div class="choice-card">
-            <span class="choice-chip"><img src="vinsolutions-logo.svg" alt="Vin Solutions" style="width:40px;height:auto;"></span>
+            <span class="choice-chip"><img src="vinsolutions-logo.svg" alt="Vin Solutions"></span>
             <span class="choice-label">Vin Solutions</span>
           </div>
         </label>
         <label>
           <input class="choice-input" type="radio" name="crm" value="Tekion" required>
           <div class="choice-card">
-            <span class="choice-chip"><img src="tekion-logo.svg" alt="Tekion" style="width:38px;height:auto;"></span>
+            <span class="choice-chip"><img src="tekion-logo.svg" alt="Tekion"></span>
             <span class="choice-label">Tekion</span>
           </div>
         </label>
@@ -351,14 +391,14 @@
         <label>
           <input class="choice-input" type="radio" name="dms" value="CDK" required>
           <div class="choice-card">
-            <span class="choice-chip"><img src="cdk-logo.png" alt="CDK" style="width:40px;height:auto;"></span>
+            <span class="choice-chip"><img src="cdk-logo.png" alt="CDK"></span>
             <span class="choice-label">CDK</span>
           </div>
         </label>
         <label>
           <input class="choice-input" type="radio" name="dms" value="Tekion" required>
           <div class="choice-card">
-            <span class="choice-chip"><img src="tekion-logo.svg" alt="Tekion" style="width:38px;height:auto;"></span>
+            <span class="choice-chip"><img src="tekion-logo.svg" alt="Tekion"></span>
             <span class="choice-label">Tekion</span>
           </div>
         </label>
@@ -431,44 +471,145 @@
     <div class="field-panel required">
       <div class="field-head">
         <span class="field-index">08</span>
-        <label for="f-pricer">Who puts the number on the car? <span class="req">*</span></label>
+        <label>Who puts the number on the car? <span class="req">*</span></label>
       </div>
-      <select id="f-pricer" name="pricer" required>
-        <option value="" disabled selected>Select one…</option>
-        <option value="Salesperson">Salesperson</option>
-        <option value="Sales Manager">Sales Manager</option>
-        <option value="Used Car Manager">Used Car Manager</option>
-        <option value="Buyer">Buyer</option>
-      </select>
+      <div class="choice-group" role="radiogroup" aria-label="Who puts the number on the car?">
+        <label>
+          <input class="choice-input" type="radio" name="pricer" value="Salesperson" required>
+          <div class="choice-card">
+            <span class="choice-chip generic">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3.2"></circle><path d="M6 20c0-3.5 2.7-6 6-6s6 2.5 6 6"></path><path d="M12 11l-1.3 2 1.3 1.6 1.3-1.6z"></path></svg>
+            </span>
+            <span class="choice-label">Salesperson</span>
+          </div>
+        </label>
+        <label>
+          <input class="choice-input" type="radio" name="pricer" value="Used Car Manager" required>
+          <div class="choice-card">
+            <span class="choice-chip generic">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3.2"></circle><path d="M6 20c0-3.5 2.7-6 6-6s6 2.5 6 6"></path><path d="M8.7 7.8c.8 1 1.8 1.3 3.3 1.3s2.5-.3 3.3-1.3c.3 1.1-.5 2.3-1.7 2.3-.7 0-1.2-.3-1.6-.7-.4.4-.9.7-1.6.7-1.2 0-2-1.2-1.7-2.3z"></path></svg>
+            </span>
+            <span class="choice-label">Used Car Mgr</span>
+          </div>
+        </label>
+        <label>
+          <input class="choice-input" type="radio" name="pricer" value="Sales Manager" required>
+          <div class="choice-card">
+            <span class="choice-chip generic">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3.2"></circle><path d="M6 20c0-3.5 2.7-6 6-6s6 2.5 6 6"></path><circle cx="9.8" cy="6.6" r="1.6"></circle><circle cx="14.2" cy="6.6" r="1.6"></circle><line x1="11.4" y1="6.6" x2="12.6" y2="6.6"></line></svg>
+            </span>
+            <span class="choice-label">Sales Manager</span>
+          </div>
+        </label>
+        <label>
+          <input class="choice-input" type="radio" name="pricer" value="Buyer" required>
+          <div class="choice-card">
+            <span class="choice-chip generic">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3.2"></circle><path d="M6 20c0-3.5 2.7-6 6-6s6 2.5 6 6"></path><path d="M16 3.5l3.2 3.2-4.2 4.2-3.2-3.2z"></path><circle cx="17.7" cy="5.2" r=".6" fill="currentColor" stroke="none"></circle></svg>
+            </span>
+            <span class="choice-label">Buyer</span>
+          </div>
+        </label>
+      </div>
     </div>
 
     <div class="field-panel required">
       <div class="field-head">
         <span class="field-index">09</span>
-        <label for="f-negotiator">Who negotiates the trade with the customer? <span class="req">*</span></label>
+        <label>Who negotiates the trade with the customer? <span class="req">*</span></label>
       </div>
-      <select id="f-negotiator" name="negotiator" required>
-        <option value="" disabled selected>Select one…</option>
-        <option value="Salesperson">Salesperson</option>
-        <option value="Sales Manager">Sales Manager</option>
-        <option value="Used Car Manager">Used Car Manager</option>
-        <option value="Buyer">Buyer</option>
-      </select>
+      <div class="choice-group" role="radiogroup" aria-label="Who negotiates the trade with the customer?">
+        <label>
+          <input class="choice-input" type="radio" name="negotiator" value="Salesperson" required>
+          <div class="choice-card">
+            <span class="choice-chip generic">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3.2"></circle><path d="M6 20c0-3.5 2.7-6 6-6s6 2.5 6 6"></path><path d="M12 11l-1.3 2 1.3 1.6 1.3-1.6z"></path></svg>
+            </span>
+            <span class="choice-label">Salesperson</span>
+          </div>
+        </label>
+        <label>
+          <input class="choice-input" type="radio" name="negotiator" value="Used Car Manager" required>
+          <div class="choice-card">
+            <span class="choice-chip generic">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3.2"></circle><path d="M6 20c0-3.5 2.7-6 6-6s6 2.5 6 6"></path><path d="M8.7 7.8c.8 1 1.8 1.3 3.3 1.3s2.5-.3 3.3-1.3c.3 1.1-.5 2.3-1.7 2.3-.7 0-1.2-.3-1.6-.7-.4.4-.9.7-1.6.7-1.2 0-2-1.2-1.7-2.3z"></path></svg>
+            </span>
+            <span class="choice-label">Used Car Mgr</span>
+          </div>
+        </label>
+        <label>
+          <input class="choice-input" type="radio" name="negotiator" value="Sales Manager" required>
+          <div class="choice-card">
+            <span class="choice-chip generic">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3.2"></circle><path d="M6 20c0-3.5 2.7-6 6-6s6 2.5 6 6"></path><circle cx="9.8" cy="6.6" r="1.6"></circle><circle cx="14.2" cy="6.6" r="1.6"></circle><line x1="11.4" y1="6.6" x2="12.6" y2="6.6"></line></svg>
+            </span>
+            <span class="choice-label">Sales Manager</span>
+          </div>
+        </label>
+        <label>
+          <input class="choice-input" type="radio" name="negotiator" value="Buyer" required>
+          <div class="choice-card">
+            <span class="choice-chip generic">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3.2"></circle><path d="M6 20c0-3.5 2.7-6 6-6s6 2.5 6 6"></path><path d="M16 3.5l3.2 3.2-4.2 4.2-3.2-3.2z"></path><circle cx="17.7" cy="5.2" r=".6" fill="currentColor" stroke="none"></circle></svg>
+            </span>
+            <span class="choice-label">Buyer</span>
+          </div>
+        </label>
+      </div>
     </div>
 
     <div class="field-panel">
       <div class="field-head">
         <span class="field-index">10</span>
-        <label for="f-stock-in">Who moves the car into the boneyard after? <span class="opt">(optional)</span></label>
+        <label>Who moves the car into the boneyard after? <span class="opt">(optional)</span></label>
       </div>
-      <select id="f-stock-in" name="stockIn">
-        <option value="" selected>Select one…</option>
-        <option value="Salesperson">Salesperson</option>
-        <option value="Sales Manager">Sales Manager</option>
-        <option value="Used Car Manager">Used Car Manager</option>
-        <option value="Buyer">Buyer</option>
-        <option value="Porter / Lot Attendant">Porter / Lot Attendant</option>
-      </select>
+      <div class="choice-group" role="radiogroup" aria-label="Who moves the car into the boneyard after?">
+        <label>
+          <input class="choice-input" type="radio" name="stockIn" value="Salesperson">
+          <div class="choice-card">
+            <span class="choice-chip generic">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3.2"></circle><path d="M6 20c0-3.5 2.7-6 6-6s6 2.5 6 6"></path><path d="M12 11l-1.3 2 1.3 1.6 1.3-1.6z"></path></svg>
+            </span>
+            <span class="choice-label">Salesperson</span>
+          </div>
+        </label>
+        <label>
+          <input class="choice-input" type="radio" name="stockIn" value="Used Car Manager">
+          <div class="choice-card">
+            <span class="choice-chip generic">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3.2"></circle><path d="M6 20c0-3.5 2.7-6 6-6s6 2.5 6 6"></path><path d="M8.7 7.8c.8 1 1.8 1.3 3.3 1.3s2.5-.3 3.3-1.3c.3 1.1-.5 2.3-1.7 2.3-.7 0-1.2-.3-1.6-.7-.4.4-.9.7-1.6.7-1.2 0-2-1.2-1.7-2.3z"></path></svg>
+            </span>
+            <span class="choice-label">Used Car Mgr</span>
+          </div>
+        </label>
+        <label>
+          <input class="choice-input" type="radio" name="stockIn" value="Sales Manager">
+          <div class="choice-card">
+            <span class="choice-chip generic">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3.2"></circle><path d="M6 20c0-3.5 2.7-6 6-6s6 2.5 6 6"></path><circle cx="9.8" cy="6.6" r="1.6"></circle><circle cx="14.2" cy="6.6" r="1.6"></circle><line x1="11.4" y1="6.6" x2="12.6" y2="6.6"></line></svg>
+            </span>
+            <span class="choice-label">Sales Manager</span>
+          </div>
+        </label>
+        <label>
+          <input class="choice-input" type="radio" name="stockIn" value="Buyer">
+          <div class="choice-card">
+            <span class="choice-chip generic">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3.2"></circle><path d="M6 20c0-3.5 2.7-6 6-6s6 2.5 6 6"></path><path d="M16 3.5l3.2 3.2-4.2 4.2-3.2-3.2z"></path><circle cx="17.7" cy="5.2" r=".6" fill="currentColor" stroke="none"></circle></svg>
+            </span>
+            <span class="choice-label">Buyer</span>
+          </div>
+        </label>
+        <label>
+          <input class="choice-input" type="radio" name="stockIn" value="Porter / Lot Attendant">
+          <div class="choice-card">
+            <span class="choice-chip generic">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3.2"></circle><path d="M6 20c0-3.5 2.7-6 6-6s6 2.5 6 6"></path><path d="M17 2v8"></path><path d="M17 2l4 2-4 2"></path></svg>
+            </span>
+            <span class="choice-label">Porter / Lot Attendant</span>
+          </div>
+        </label>
+      </div>
     </div>
 
     <div class="field-panel required">
@@ -517,10 +658,21 @@
     </div>
 
     <div class="submit-row">
-      <button type="submit" class="submit" id="submit-btn">Submit Profile</button>
+      <button type="submit" class="submit" id="submit-btn">Review My Process →</button>
       <span class="submit-status" id="submit-status"></span>
     </div>
   </form>
+
+  <div class="flow-panel" id="flow-panel">
+    <h3>Your Appraisal Process</h3>
+    <p class="flow-sub">Here's the flow we'll build your Appraisal Academy training path around. Confirm to submit.</p>
+    <div class="flow-chart" id="flow-chart"></div>
+    <div class="flow-actions">
+      <button type="button" class="ghost-btn" id="edit-btn">← Edit Answers</button>
+      <button type="button" class="submit" id="confirm-btn">Confirm &amp; Submit</button>
+      <span class="submit-status" id="confirm-status"></span>
+    </div>
+  </div>
 
   <div class="success-panel" id="success-panel">
     <div class="check">✓</div>
@@ -539,8 +691,48 @@
   const btn = document.getElementById('submit-btn');
   const status = document.getElementById('submit-status');
   const success = document.getElementById('success-panel');
+  const flowPanel = document.getElementById('flow-panel');
+  const flowChart = document.getElementById('flow-chart');
+  const editBtn = document.getElementById('edit-btn');
+  const confirmBtn = document.getElementById('confirm-btn');
+  const confirmStatus = document.getElementById('confirm-status');
 
-  form.addEventListener('submit', async (e) => {
+  // Order matches the wizard: appraisal tool → CRM → DMS → who starts →
+  // who prices → who negotiates → who moves it to the boneyard → keys.
+  const FLOW_FIELDS = [
+    { name: 'appraisalTool', label: 'Appraisal Tool' },
+    { name: 'crm', label: 'CRM' },
+    { name: 'dms', label: 'DMS' },
+    { name: 'firstEntry', label: 'Starts the Appraisal' },
+    { name: 'pricer', label: 'Prices the Trade' },
+    { name: 'negotiator', label: 'Negotiates with Customer' },
+    { name: 'stockIn', label: 'Moves It to the Boneyard' },
+    { name: 'keysPlacement', label: 'Keys Placed' },
+  ];
+
+  const ARROW_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="4" x2="12" y2="18"></line><polyline points="6 12 12 18 18 12"></polyline></svg>';
+
+  let pendingData = null;
+
+  function buildFlowChart(data) {
+    flowChart.innerHTML = '';
+    FLOW_FIELDS.forEach((f, i) => {
+      const node = document.createElement('div');
+      node.className = 'flow-node';
+      const value = data[f.name] && String(data[f.name]).trim() ? data[f.name] : 'Not specified';
+      node.innerHTML = '<span class="flow-label">' + f.label + '</span><span class="flow-value"></span>';
+      node.querySelector('.flow-value').textContent = value;
+      flowChart.appendChild(node);
+      if (i < FLOW_FIELDS.length - 1) {
+        const arrow = document.createElement('div');
+        arrow.className = 'flow-arrow';
+        arrow.innerHTML = ARROW_SVG;
+        flowChart.appendChild(arrow);
+      }
+    });
+  }
+
+  form.addEventListener('submit', (e) => {
     e.preventDefault();
     status.textContent = '';
     status.classList.remove('error');
@@ -550,16 +742,33 @@
       return;
     }
 
-    const data = Object.fromEntries(new FormData(form).entries());
+    pendingData = Object.fromEntries(new FormData(form).entries());
+    buildFlowChart(pendingData);
 
-    btn.disabled = true;
-    status.textContent = 'Submitting…';
+    form.style.display = 'none';
+    flowPanel.classList.add('show');
+    flowPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  editBtn.addEventListener('click', () => {
+    flowPanel.classList.remove('show');
+    form.style.display = 'flex';
+    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  confirmBtn.addEventListener('click', async () => {
+    if (!pendingData) return;
+    confirmStatus.textContent = '';
+    confirmStatus.classList.remove('error');
+    confirmBtn.disabled = true;
+    editBtn.disabled = true;
+    confirmStatus.textContent = 'Submitting…';
 
     try {
       const resp = await fetch('/.netlify/functions/submit-dealer-profile', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify(pendingData),
       });
       const result = await resp.json();
 
@@ -567,13 +776,14 @@
         throw new Error(result.error || 'Something went wrong.');
       }
 
-      form.style.display = 'none';
+      flowPanel.classList.remove('show');
       success.classList.add('show');
       success.scrollIntoView({ behavior: 'smooth', block: 'center' });
     } catch (err) {
-      status.textContent = err.message || 'Something went wrong. Please try again.';
-      status.classList.add('error');
-      btn.disabled = false;
+      confirmStatus.textContent = err.message || 'Something went wrong. Please try again.';
+      confirmStatus.classList.add('error');
+      confirmBtn.disabled = false;
+      editBtn.disabled = false;
     }
   });
 </script>
