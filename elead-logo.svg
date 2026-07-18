@@ -1,0 +1,5 @@
+<svg width="150" height="40" viewBox="0 0 150 40" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="16" cy="20" r="14" fill="#0057B8"/>
+  <path d="M10 20 L15 26 L23 14" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <text x="36" y="28" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#0A1F3D">elead</text>
+</svg>

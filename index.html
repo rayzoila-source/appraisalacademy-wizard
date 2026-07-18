@@ -276,32 +276,161 @@
     <div class="field-panel required">
       <div class="field-head">
         <span class="field-index">05</span>
-        <label for="f-first-entry">Who first enters the car into the system? <span class="req">*</span></label>
+        <label>Which CRM do you use? <span class="req">*</span></label>
       </div>
-      <select id="f-first-entry" name="firstEntry" required>
-        <option value="" disabled selected>Select one…</option>
-        <option value="Salesperson">Salesperson</option>
-        <option value="Sales Manager">Sales Manager</option>
-        <option value="Used Car Manager">Used Car Manager</option>
-        <option value="Buyer">Buyer</option>
-      </select>
+      <div class="choice-group" role="radiogroup" aria-label="Which CRM do you use?">
+        <label>
+          <input class="choice-input" type="radio" name="crm" value="Elead" required>
+          <div class="choice-card">
+            <span class="choice-chip"><img src="elead-logo.svg" alt="Elead" style="width:40px;height:auto;"></span>
+            <span class="choice-label">Elead</span>
+          </div>
+        </label>
+        <label>
+          <input class="choice-input" type="radio" name="crm" value="Drive Centric" required>
+          <div class="choice-card">
+            <span class="choice-chip"><img src="drivecentric-logo.svg" alt="Drive Centric" style="width:44px;height:auto;"></span>
+            <span class="choice-label">Drive Centric</span>
+          </div>
+        </label>
+        <label>
+          <input class="choice-input" type="radio" name="crm" value="DealerDocket" required>
+          <div class="choice-card">
+            <span class="choice-chip"><img src="dealerdocket-logo.svg" alt="DealerDocket" style="width:42px;height:auto;"></span>
+            <span class="choice-label">DealerDocket</span>
+          </div>
+        </label>
+        <label>
+          <input class="choice-input" type="radio" name="crm" value="Vin Solutions" required>
+          <div class="choice-card">
+            <span class="choice-chip"><img src="vinsolutions-logo.svg" alt="Vin Solutions" style="width:40px;height:auto;"></span>
+            <span class="choice-label">Vin Solutions</span>
+          </div>
+        </label>
+        <label>
+          <input class="choice-input" type="radio" name="crm" value="Tekion" required>
+          <div class="choice-card">
+            <span class="choice-chip"><img src="tekion-logo.svg" alt="Tekion" style="width:38px;height:auto;"></span>
+            <span class="choice-label">Tekion</span>
+          </div>
+        </label>
+        <label>
+          <input class="choice-input" type="radio" name="crm" value="Corporate" required>
+          <div class="choice-card">
+            <span class="choice-chip generic">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18"></rect><line x1="8" y1="7" x2="8" y2="7"></line><line x1="12" y1="7" x2="12" y2="7"></line><line x1="16" y1="7" x2="16" y2="7"></line><line x1="8" y1="11" x2="8" y2="11"></line><line x1="12" y1="11" x2="12" y2="11"></line><line x1="16" y1="11" x2="16" y2="11"></line><line x1="8" y1="15" x2="8" y2="15"></line><line x1="12" y1="15" x2="12" y2="15"></line><line x1="16" y1="15" x2="16" y2="15"></line></svg>
+            </span>
+            <span class="choice-label">Corporate</span>
+          </div>
+        </label>
+        <label>
+          <input class="choice-input" type="radio" name="crm" value="Other" required>
+          <div class="choice-card">
+            <span class="choice-chip generic">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2.5 2-2.5 3.5"></path><line x1="12" y1="16.5" x2="12" y2="16.5"></line></svg>
+            </span>
+            <span class="choice-label">Other</span>
+          </div>
+        </label>
+      </div>
     </div>
 
     <div class="field-panel required">
       <div class="field-head">
         <span class="field-index">06</span>
-        <label for="f-entry-system">Is it entered into the CRM, or directly into the appraisal tool? <span class="req">*</span></label>
+        <label>Which DMS do you use? <span class="req">*</span></label>
       </div>
-      <select id="f-entry-system" name="entrySystem" required>
-        <option value="" disabled selected>Select one…</option>
-        <option value="CRM">CRM</option>
-        <option value="Appraisal Tool Directly">Appraisal Tool Directly</option>
-      </select>
+      <div class="choice-group" role="radiogroup" aria-label="Which DMS do you use?">
+        <label>
+          <input class="choice-input" type="radio" name="dms" value="Reynolds & Reynolds" required>
+          <div class="choice-card">
+            <span class="choice-chip"><img src="reyrey-icon.png" alt="Reynolds & Reynolds"></span>
+            <span class="choice-label">Reynolds &amp; Reynolds</span>
+          </div>
+        </label>
+        <label>
+          <input class="choice-input" type="radio" name="dms" value="CDK" required>
+          <div class="choice-card">
+            <span class="choice-chip"><img src="cdk-logo.png" alt="CDK" style="width:40px;height:auto;"></span>
+            <span class="choice-label">CDK</span>
+          </div>
+        </label>
+        <label>
+          <input class="choice-input" type="radio" name="dms" value="Tekion" required>
+          <div class="choice-card">
+            <span class="choice-chip"><img src="tekion-logo.svg" alt="Tekion" style="width:38px;height:auto;"></span>
+            <span class="choice-label">Tekion</span>
+          </div>
+        </label>
+        <label>
+          <input class="choice-input" type="radio" name="dms" value="Corporate" required>
+          <div class="choice-card">
+            <span class="choice-chip generic">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18"></rect><line x1="8" y1="7" x2="8" y2="7"></line><line x1="12" y1="7" x2="12" y2="7"></line><line x1="16" y1="7" x2="16" y2="7"></line><line x1="8" y1="11" x2="8" y2="11"></line><line x1="12" y1="11" x2="12" y2="11"></line><line x1="16" y1="11" x2="16" y2="11"></line><line x1="8" y1="15" x2="8" y2="15"></line><line x1="12" y1="15" x2="12" y2="15"></line><line x1="16" y1="15" x2="16" y2="15"></line></svg>
+            </span>
+            <span class="choice-label">Corporate</span>
+          </div>
+        </label>
+        <label>
+          <input class="choice-input" type="radio" name="dms" value="Other" required>
+          <div class="choice-card">
+            <span class="choice-chip generic">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2.5 2-2.5 3.5"></path><line x1="12" y1="16.5" x2="12" y2="16.5"></line></svg>
+            </span>
+            <span class="choice-label">Other</span>
+          </div>
+        </label>
+      </div>
     </div>
 
     <div class="field-panel required">
       <div class="field-head">
         <span class="field-index">07</span>
+        <label>Who starts the appraisal process? <span class="req">*</span></label>
+      </div>
+      <div class="choice-group" role="radiogroup" aria-label="Who starts the appraisal process?">
+        <label>
+          <input class="choice-input" type="radio" name="firstEntry" value="Salesperson" required>
+          <div class="choice-card">
+            <span class="choice-chip generic">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3.2"></circle><path d="M6 20c0-3.5 2.7-6 6-6s6 2.5 6 6"></path><path d="M12 11l-1.3 2 1.3 1.6 1.3-1.6z"></path></svg>
+            </span>
+            <span class="choice-label">Salesperson</span>
+          </div>
+        </label>
+        <label>
+          <input class="choice-input" type="radio" name="firstEntry" value="Used Car Manager" required>
+          <div class="choice-card">
+            <span class="choice-chip generic">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3.2"></circle><path d="M6 20c0-3.5 2.7-6 6-6s6 2.5 6 6"></path><path d="M8.7 7.8c.8 1 1.8 1.3 3.3 1.3s2.5-.3 3.3-1.3c.3 1.1-.5 2.3-1.7 2.3-.7 0-1.2-.3-1.6-.7-.4.4-.9.7-1.6.7-1.2 0-2-1.2-1.7-2.3z"></path></svg>
+            </span>
+            <span class="choice-label">Used Car Mgr</span>
+          </div>
+        </label>
+        <label>
+          <input class="choice-input" type="radio" name="firstEntry" value="Sales Manager" required>
+          <div class="choice-card">
+            <span class="choice-chip generic">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3.2"></circle><path d="M6 20c0-3.5 2.7-6 6-6s6 2.5 6 6"></path><circle cx="9.8" cy="6.6" r="1.6"></circle><circle cx="14.2" cy="6.6" r="1.6"></circle><line x1="11.4" y1="6.6" x2="12.6" y2="6.6"></line></svg>
+            </span>
+            <span class="choice-label">Sales Manager</span>
+          </div>
+        </label>
+        <label>
+          <input class="choice-input" type="radio" name="firstEntry" value="Buyer" required>
+          <div class="choice-card">
+            <span class="choice-chip generic">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3.2"></circle><path d="M6 20c0-3.5 2.7-6 6-6s6 2.5 6 6"></path><path d="M16 3.5l3.2 3.2-4.2 4.2-3.2-3.2z"></path><circle cx="17.7" cy="5.2" r=".6" fill="currentColor" stroke="none"></circle></svg>
+            </span>
+            <span class="choice-label">Buyer</span>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <div class="field-panel required">
+      <div class="field-head">
+        <span class="field-index">08</span>
         <label for="f-pricer">Who puts the number on the car? <span class="req">*</span></label>
       </div>
       <select id="f-pricer" name="pricer" required>
@@ -315,8 +444,8 @@
 
     <div class="field-panel required">
       <div class="field-head">
-        <span class="field-index">08</span>
-        <label for="f-negotiator">Who negotiates the number with the customer? <span class="req">*</span></label>
+        <span class="field-index">09</span>
+        <label for="f-negotiator">Who negotiates the trade with the customer? <span class="req">*</span></label>
       </div>
       <select id="f-negotiator" name="negotiator" required>
         <option value="" disabled selected>Select one…</option>
@@ -329,8 +458,8 @@
 
     <div class="field-panel">
       <div class="field-head">
-        <span class="field-index">09</span>
-        <label for="f-stock-in">Who stocks the car in and puts it in the bullpen? <span class="opt">(optional)</span></label>
+        <span class="field-index">10</span>
+        <label for="f-stock-in">Who moves the car into the boneyard after? <span class="opt">(optional)</span></label>
       </div>
       <select id="f-stock-in" name="stockIn">
         <option value="" selected>Select one…</option>
@@ -340,6 +469,51 @@
         <option value="Buyer">Buyer</option>
         <option value="Porter / Lot Attendant">Porter / Lot Attendant</option>
       </select>
+    </div>
+
+    <div class="field-panel required">
+      <div class="field-head">
+        <span class="field-index">11</span>
+        <label>Where are the keys placed? <span class="req">*</span></label>
+      </div>
+      <div class="choice-group" role="radiogroup" aria-label="Where are the keys placed?">
+        <label>
+          <input class="choice-input" type="radio" name="keysPlacement" value="Key Box at Front Desk" required>
+          <div class="choice-card">
+            <span class="choice-chip generic">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="12" rx="1"></rect><path d="M8 8V6a4 4 0 0 1 8 0v2"></path><circle cx="12" cy="14" r="1.6"></circle></svg>
+            </span>
+            <span class="choice-label">Key Box / Front Desk</span>
+          </div>
+        </label>
+        <label>
+          <input class="choice-input" type="radio" name="keysPlacement" value="With the Appraiser" required>
+          <div class="choice-card">
+            <span class="choice-chip generic">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3.2"></circle><path d="M6 20c0-3.5 2.7-6 6-6s6 2.5 6 6"></path></svg>
+            </span>
+            <span class="choice-label">With the Appraiser</span>
+          </div>
+        </label>
+        <label>
+          <input class="choice-input" type="radio" name="keysPlacement" value="Left in the Vehicle" required>
+          <div class="choice-card">
+            <span class="choice-chip generic">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13l2-5a2 2 0 0 1 2-1.3h8A2 2 0 0 1 17 8l2 5"></path><rect x="2.5" y="13" width="19" height="5" rx="1.5"></rect><circle cx="7" cy="18" r="1.3"></circle><circle cx="17" cy="18" r="1.3"></circle></svg>
+            </span>
+            <span class="choice-label">Left in Vehicle</span>
+          </div>
+        </label>
+        <label>
+          <input class="choice-input" type="radio" name="keysPlacement" value="Other" required>
+          <div class="choice-card">
+            <span class="choice-chip generic">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2.5 2-2.5 3.5"></path><line x1="12" y1="16.5" x2="12" y2="16.5"></line></svg>
+            </span>
+            <span class="choice-label">Other</span>
+          </div>
+        </label>
+      </div>
     </div>
 
     <div class="submit-row">

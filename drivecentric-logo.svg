@@ -1,0 +1,6 @@
+<svg width="180" height="40" viewBox="0 0 180 40" xmlns="http://www.w3.org/2000/svg">
+  <polygon points="6,6 26,6 20,20" fill="#3EC28F"/>
+  <polygon points="6,6 6,26 20,20" fill="#4A90D9"/>
+  <polygon points="26,6 20,20 34,26" fill="#8E5FD1"/>
+  <text x="40" y="27" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="800" fill="#111111">Drive<tspan fill="#6B6B6B" font-weight="500">Centric</tspan></text>
+</svg>
