@@ -1,16 +1,19 @@
 <!--
   VIRTUAL AUTOMOTIV — APPRAISAL ACADEMY DEALER PROFILE
   =====================================================
-  Live form wired up: Dealerships table → "Dealer Profile - Appraisal Academy"
-  form view, shared as "Anyone on the web", embedded below.
-  Base: https://airtable.com/appFbuGvhQAVK9ixz
+  Custom-built form (not an Airtable embed). Submits via a Netlify Function
+  (netlify/functions/submit-dealer-profile.js) which writes directly to the
+  Dealerships table in Airtable using a write-only, base-scoped token stored
+  as a Netlify environment variable (AIRTABLE_TOKEN) — never exposed to the
+  browser.
 
+  Base: https://airtable.com/appFbuGvhQAVK9ixz
   Deployed via GitHub (rayzoila-source/appraisalacademy-wizard) → Netlify
   (appraisalacademy-wizard project) → wizard.appraisalacademy.net.
 
-  Optional polish (Team/Business Airtable plans only): in the form's Share
-  settings you can hide the "Powered by Airtable" mark and set a background
-  color to #000000 to blend with this page.
+  Visual language matches tsb.virtualautomotiv.com / tsb.grader.virtualautomotiv.com:
+  Orbitron for headings/labels, Inter for body/inputs, dark HUD dashboard
+  card panels with accent-colored index chips.
 -->
 <!DOCTYPE html>
 <html lang="en" class="dark">
@@ -20,18 +23,24 @@
 <title>Dealer Profile — Appraisal Academy | Virtual Automotiv</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#161718;
+    --bg:#131417;
+    --panel:#1b1d22;
+    --panel-border:rgba(255,255,255,0.08);
+    --input-bg:#0d0e11;
+    --input-border:rgba(255,255,255,0.14);
     --text:#f5f5f5;
     --text-dim:#9aa0a6;
     --accent:#0081EC;
     --accent-bright:#00AFFF;
     --border:rgba(0,129,236,0.35);
+    --ok:#2ecf7a;
+    --err:#ff5c5c;
   }
   *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:'Orbitron',sans-serif;}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:'Inter',Arial,sans-serif;}
   a{color:inherit;text-decoration:none;}
 
   header{
@@ -41,51 +50,100 @@
   .logo{display:flex;align-items:center;gap:12px;}
   .logo img.monogram{height:36px;width:auto;display:block;}
   .logo img.wordmark{height:20px;width:auto;display:block;}
-  header nav a{font-size:12px;letter-spacing:1.5px;color:var(--text-dim);}
+  header nav a{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:1.5px;color:var(--text-dim);}
   header nav a:hover{color:var(--accent-bright);}
 
   main{max-width:900px;margin:0 auto;padding:70px 24px 100px;}
 
   .eyebrow{
-    display:inline-block;font-size:12px;letter-spacing:3px;color:var(--accent-bright);
+    display:inline-block;font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:3px;color:var(--accent-bright);
     border:1px solid var(--border);padding:6px 14px;margin-bottom:24px;
   }
   h1{
+    font-family:'Orbitron',sans-serif;font-weight:800;
     font-size:clamp(28px,5vw,44px);line-height:1.15;letter-spacing:1px;
     margin:0 0 18px;text-transform:uppercase;
   }
   h1 .accent{color:var(--accent-bright);}
-  p.lede{color:var(--text-dim);font-size:15px;line-height:1.7;max-width:640px;margin:0 0 40px;font-family:Arial,Helvetica,sans-serif;}
+  p.lede{color:var(--text-dim);font-size:15px;line-height:1.7;max-width:640px;margin:0 0 40px;}
 
   .callout{
     border:1px solid var(--border);padding:18px 22px;margin-bottom:44px;
-    font-family:Arial,Helvetica,sans-serif;font-size:13px;color:var(--text-dim);line-height:1.6;
+    font-size:13px;color:var(--text-dim);line-height:1.6;background:rgba(0,129,236,0.04);
   }
-  .callout b{color:var(--text);}
+  .callout b{color:var(--text);font-family:'Orbitron',sans-serif;font-weight:600;}
 
-  .frame{
-    position:relative;border:1px solid var(--border);padding:2px;
-  }
-  .frame::before,.frame::after{
-    content:'';position:absolute;width:16px;height:16px;
-    border-color:var(--accent-bright);
-  }
-  .frame::before{top:-1px;left:-1px;border-top:2px solid var(--accent-bright);border-left:2px solid var(--accent-bright);}
-  .frame::after{bottom:-1px;right:-1px;border-bottom:2px solid var(--accent-bright);border-right:2px solid var(--accent-bright);}
+  form{display:flex;flex-direction:column;gap:16px;}
 
-  iframe{
-    width:100%;height:1700px;border:none;display:block;background:#ffffff;
+  .field-panel{
+    position:relative;background:var(--panel);border:1px solid var(--panel-border);
+    padding:20px 22px 22px;
   }
+  .field-panel::before{
+    content:'';position:absolute;top:0;left:0;bottom:0;width:2px;background:var(--border);
+  }
+  .field-panel.required::before{background:var(--accent-bright);}
 
-  .fallback{
-    text-align:center;margin-top:20px;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:var(--text-dim);
+  .field-head{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+  .field-index{
+    font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;color:var(--accent-bright);
+    border:1px solid var(--border);width:22px;height:22px;display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
   }
-  .fallback a{color:var(--accent-bright);border-bottom:1px solid var(--accent-bright);}
+  label{
+    font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;
+    color:var(--text);font-weight:600;
+  }
+  label .opt{color:var(--text-dim);font-weight:400;text-transform:none;letter-spacing:0;font-family:'Inter',sans-serif;}
+  label .req{color:var(--accent-bright);margin-left:2px;}
+
+  input[type="text"], input[type="url"], textarea, select{
+    width:100%;background:var(--input-bg);border:1px solid var(--input-border);
+    color:var(--text);font-family:'Inter',sans-serif;font-size:14px;padding:11px 12px;
+    outline:none;transition:border-color .15s, box-shadow .15s;
+  }
+  input[type="text"]:focus, input[type="url"]:focus, textarea:focus, select:focus{
+    border-color:var(--accent-bright);box-shadow:0 0 0 3px rgba(0,175,255,0.15);
+  }
+  textarea{min-height:90px;resize:vertical;font-family:'Inter',sans-serif;}
+  select{
+    appearance:none;-webkit-appearance:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%2300AFFF'%3E%3Cpath d='M5.25 7.5L10 12.25 14.75 7.5' stroke='%2300AFFF' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 12px center;padding-right:34px;cursor:pointer;
+  }
+  select option{background:#15161a;color:var(--text);}
+  ::placeholder{color:#5c6066;}
+
+  .honeypot{position:absolute;left:-9999px;opacity:0;pointer-events:none;height:0;overflow:hidden;}
+
+  .submit-row{display:flex;align-items:center;gap:16px;margin-top:8px;}
+  button.submit{
+    font-family:'Orbitron',sans-serif;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+    font-size:13px;background:var(--accent-bright);color:#00131f;border:none;
+    padding:14px 28px;cursor:pointer;transition:opacity .15s, transform .1s;
+  }
+  button.submit:hover{opacity:.9;}
+  button.submit:active{transform:translateY(1px);}
+  button.submit:disabled{opacity:.5;cursor:not-allowed;}
+  .submit-status{font-size:13px;color:var(--text-dim);}
+  .submit-status.error{color:var(--err);}
+
+  .success-panel{
+    display:none;border:1px solid rgba(46,207,122,0.4);background:rgba(46,207,122,0.06);
+    padding:32px;text-align:center;
+  }
+  .success-panel.show{display:block;}
+  .success-panel .check{
+    width:48px;height:48px;border:2px solid var(--ok);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;margin:0 auto 18px;color:var(--ok);font-size:22px;
+  }
+  .success-panel h3{font-family:'Orbitron',sans-serif;margin:0 0 8px;letter-spacing:1px;text-transform:uppercase;}
+  .success-panel p{color:var(--text-dim);font-size:14px;margin:0;}
 
   footer{
     border-top:1px solid rgba(255,255,255,0.08);padding:30px 40px;
     display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
-    font-size:11px;letter-spacing:1px;color:var(--text-dim);
+    font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:1px;color:var(--text-dim);
   }
 </style>
 </head>
@@ -116,22 +174,176 @@
     "anything else" field at the end and we'll follow up.
   </div>
 
-  <div class="frame">
-    <iframe
-      src="https://airtable.com/embed/appFbuGvhQAVK9ixz/pagdbqcR2gD2JH7zd/form"
-      title="Appraisal Academy Dealer Profile">
-    </iframe>
-  </div>
+  <form id="dealer-form" novalidate>
+    <input type="text" name="_hp" class="honeypot" tabindex="-1" autocomplete="off">
 
-  <p class="fallback">
-    Form not loading? <a href="https://airtable.com/appFbuGvhQAVK9ixz/pagdbqcR2gD2JH7zd/form" target="_blank" rel="noopener">Open it directly →</a>
-  </p>
+    <div class="field-panel required">
+      <div class="field-head">
+        <span class="field-index">01</span>
+        <label for="f-name">Dealership Name <span class="req">*</span></label>
+      </div>
+      <input type="text" id="f-name" name="name" required autocomplete="organization">
+    </div>
+
+    <div class="field-panel">
+      <div class="field-head">
+        <span class="field-index">02</span>
+        <label for="f-website">Dealership Website <span class="opt">(optional)</span></label>
+      </div>
+      <input type="url" id="f-website" name="website" placeholder="https://" autocomplete="url">
+    </div>
+
+    <div class="field-panel">
+      <div class="field-head">
+        <span class="field-index">03</span>
+        <label for="f-notes">Anything else we should know about your process? <span class="opt">(optional)</span></label>
+      </div>
+      <textarea id="f-notes" name="notes"></textarea>
+    </div>
+
+    <div class="field-panel required">
+      <div class="field-head">
+        <span class="field-index">04</span>
+        <label for="f-tool">Which appraisal tool do you use? <span class="req">*</span></label>
+      </div>
+      <select id="f-tool" name="appraisalTool" required>
+        <option value="" disabled selected>Select one…</option>
+        <option value="AutoHub with vAuto">AutoHub with vAuto</option>
+        <option value="vAuto Only">vAuto Only</option>
+        <option value="Other Appraisal Tool">Other Appraisal Tool</option>
+      </select>
+    </div>
+
+    <div class="field-panel required">
+      <div class="field-head">
+        <span class="field-index">05</span>
+        <label for="f-first-entry">Who first enters the car into the system? <span class="req">*</span></label>
+      </div>
+      <select id="f-first-entry" name="firstEntry" required>
+        <option value="" disabled selected>Select one…</option>
+        <option value="Salesperson">Salesperson</option>
+        <option value="Sales Manager">Sales Manager</option>
+        <option value="Used Car Manager">Used Car Manager</option>
+        <option value="Buyer">Buyer</option>
+      </select>
+    </div>
+
+    <div class="field-panel required">
+      <div class="field-head">
+        <span class="field-index">06</span>
+        <label for="f-entry-system">Is it entered into the CRM, or directly into the appraisal tool? <span class="req">*</span></label>
+      </div>
+      <select id="f-entry-system" name="entrySystem" required>
+        <option value="" disabled selected>Select one…</option>
+        <option value="CRM">CRM</option>
+        <option value="Appraisal Tool Directly">Appraisal Tool Directly</option>
+      </select>
+    </div>
+
+    <div class="field-panel required">
+      <div class="field-head">
+        <span class="field-index">07</span>
+        <label for="f-pricer">Who puts the number on the car? <span class="req">*</span></label>
+      </div>
+      <select id="f-pricer" name="pricer" required>
+        <option value="" disabled selected>Select one…</option>
+        <option value="Salesperson">Salesperson</option>
+        <option value="Sales Manager">Sales Manager</option>
+        <option value="Used Car Manager">Used Car Manager</option>
+        <option value="Buyer">Buyer</option>
+      </select>
+    </div>
+
+    <div class="field-panel required">
+      <div class="field-head">
+        <span class="field-index">08</span>
+        <label for="f-negotiator">Who negotiates the number with the customer? <span class="req">*</span></label>
+      </div>
+      <select id="f-negotiator" name="negotiator" required>
+        <option value="" disabled selected>Select one…</option>
+        <option value="Salesperson">Salesperson</option>
+        <option value="Sales Manager">Sales Manager</option>
+        <option value="Used Car Manager">Used Car Manager</option>
+        <option value="Buyer">Buyer</option>
+      </select>
+    </div>
+
+    <div class="field-panel">
+      <div class="field-head">
+        <span class="field-index">09</span>
+        <label for="f-stock-in">Who stocks the car in and puts it in the bullpen? <span class="opt">(optional)</span></label>
+      </div>
+      <select id="f-stock-in" name="stockIn">
+        <option value="" selected>Select one…</option>
+        <option value="Salesperson">Salesperson</option>
+        <option value="Sales Manager">Sales Manager</option>
+        <option value="Used Car Manager">Used Car Manager</option>
+        <option value="Buyer">Buyer</option>
+        <option value="Porter / Lot Attendant">Porter / Lot Attendant</option>
+      </select>
+    </div>
+
+    <div class="submit-row">
+      <button type="submit" class="submit" id="submit-btn">Submit Profile</button>
+      <span class="submit-status" id="submit-status"></span>
+    </div>
+  </form>
+
+  <div class="success-panel" id="success-panel">
+    <div class="check">✓</div>
+    <h3>Profile received</h3>
+    <p>Thanks — we've got your dealership's appraisal process on file. We'll use this to build your Appraisal Academy training path.</p>
+  </div>
 </main>
 
 <footer>
   <div>VIRTUAL AUTOMOTIV</div>
   <div>WINNING AT SELLING CARS · APPRAISAL ACADEMY · PHONE POP · DAY ONE · TRADEINTRACKER.IO</div>
 </footer>
+
+<script>
+  const form = document.getElementById('dealer-form');
+  const btn = document.getElementById('submit-btn');
+  const status = document.getElementById('submit-status');
+  const success = document.getElementById('success-panel');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    status.textContent = '';
+    status.classList.remove('error');
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    const data = Object.fromEntries(new FormData(form).entries());
+
+    btn.disabled = true;
+    status.textContent = 'Submitting…';
+
+    try {
+      const resp = await fetch('/.netlify/functions/submit-dealer-profile', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      const result = await resp.json();
+
+      if (!resp.ok) {
+        throw new Error(result.error || 'Something went wrong.');
+      }
+
+      form.style.display = 'none';
+      success.classList.add('show');
+      success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } catch (err) {
+      status.textContent = err.message || 'Something went wrong. Please try again.';
+      status.classList.add('error');
+      btn.disabled = false;
+    }
+  });
+</script>
 
 </body>
 </html>
