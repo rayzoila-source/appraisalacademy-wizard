@@ -84,13 +84,13 @@
     border:none;padding:14px 28px;cursor:pointer;transition:opacity .15s, transform .1s;
   }
   a.cta-start:hover{opacity:.9;}
-  a.cta-contact{
+  .cta-contact{
     display:inline-block;font-family:'Orbitron',sans-serif;font-weight:700;letter-spacing:1.5px;
     text-transform:uppercase;font-size:12px;background:transparent;color:var(--text-dim);
     border:1px solid var(--input-border);padding:13px 24px;cursor:pointer;
     transition:border-color .15s, color .15s;
   }
-  a.cta-contact:hover{border-color:var(--accent-bright);color:var(--accent-bright);}
+  .cta-contact:hover{border-color:var(--accent-bright);color:var(--accent-bright);}
 
   .callout{
     border:1px solid var(--border);padding:18px 22px;margin-bottom:44px;
@@ -201,6 +201,52 @@
   .submit-status{font-size:13px;color:var(--text-dim);}
   .submit-status.error{color:var(--err);}
 
+  /* Schedule a Demo modal (opened by the Contact Us button) */
+  .modal-overlay{
+    display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);
+    align-items:center;justify-content:center;padding:24px;z-index:1000;
+  }
+  .modal-overlay.show{display:flex;}
+  .modal-card{
+    width:100%;max-width:440px;max-height:90vh;overflow-y:auto;
+    background:var(--panel);border:1px solid var(--border);padding:28px 26px 26px;position:relative;
+  }
+  .modal-close{
+    position:absolute;top:18px;right:18px;background:none;border:none;color:var(--text-dim);
+    font-size:20px;line-height:1;cursor:pointer;padding:4px;
+  }
+  .modal-close:hover{color:var(--text);}
+  .modal-eyebrow{
+    font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:2px;color:var(--accent-bright);
+    text-transform:uppercase;margin:0 0 6px;
+  }
+  .modal-card h3{
+    font-family:'Orbitron',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:1px;
+    font-size:20px;margin:0 0 8px;color:var(--text);
+  }
+  .modal-card p.modal-sub{color:var(--text-dim);font-size:13px;line-height:1.5;margin:0 0 22px;}
+  .modal-field{margin-bottom:16px;}
+  .modal-field label{display:block;margin-bottom:6px;}
+  .modal-checkbox{display:flex;align-items:center;gap:10px;margin-bottom:20px;}
+  .modal-checkbox input[type="checkbox"]{
+    width:18px;height:18px;accent-color:var(--accent-bright);flex-shrink:0;cursor:pointer;
+  }
+  .modal-checkbox label{
+    font-family:'Inter',sans-serif;font-size:13px;letter-spacing:0;text-transform:none;
+    font-weight:400;color:var(--text-dim);cursor:pointer;margin:0;
+  }
+  .modal-card button.submit{width:100%;justify-content:center;display:flex;align-items:center;gap:8px;}
+  .modal-status{font-size:13px;color:var(--text-dim);margin-top:12px;text-align:center;}
+  .modal-status.error{color:var(--err);}
+  .modal-success{display:none;text-align:center;padding:20px 0;}
+  .modal-success.show{display:block;}
+  .modal-success .check{
+    width:44px;height:44px;border:2px solid var(--ok);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;margin:0 auto 16px;color:var(--ok);font-size:20px;
+  }
+  .modal-success h3{margin:0 0 8px;}
+  .modal-success p{color:var(--text-dim);font-size:14px;margin:0;}
+
   .success-panel{
     display:none;border:1px solid rgba(46,207,122,0.4);background:rgba(46,207,122,0.06);
     padding:32px;text-align:center;
@@ -283,7 +329,7 @@
     <p class="cta-line">Get started with a free trial today.</p>
     <div class="cta-buttons">
       <a href="#start" class="cta-start">Start Here ↓</a>
-      <a href="https://www.virtualautomotiv.com/contact" class="cta-contact">Contact Us</a>
+      <button type="button" class="cta-contact" id="open-demo-modal">Contact Us</button>
     </div>
   </div>
 
@@ -999,6 +1045,142 @@
       editBtn.disabled = false;
     }
   });
+</script>
+
+<!-- Schedule a Demo modal, opened by the Contact Us button -->
+<div class="modal-overlay" id="demo-modal-overlay">
+  <div class="modal-card">
+    <button type="button" class="modal-close" id="demo-modal-close" aria-label="Close">&times;</button>
+
+    <div id="demo-modal-form-wrap">
+      <p class="modal-eyebrow">Virtual Automotiv</p>
+      <h3>Schedule a Demo</h3>
+      <p class="modal-sub">Tell us about your dealership and we'll reach out within 24 hours.</p>
+
+      <form id="demo-form" novalidate>
+        <input type="text" name="_hp" class="honeypot" tabindex="-1" autocomplete="off">
+
+        <div class="modal-field">
+          <label for="demo-name">Full Name</label>
+          <input type="text" id="demo-name" name="fullName" placeholder="John Smith" required>
+        </div>
+        <div class="modal-field">
+          <label for="demo-dealership">Dealership Name</label>
+          <input type="text" id="demo-dealership" name="dealershipName" placeholder="ABC Motors" required>
+        </div>
+        <div class="modal-field">
+          <label for="demo-phone">Phone Number</label>
+          <input type="tel" id="demo-phone" name="phone" placeholder="(555) 000-0000" required>
+        </div>
+        <div class="modal-field">
+          <label for="demo-email">Email <span class="opt">(optional)</span></label>
+          <input type="email" id="demo-email" name="email" placeholder="you@dealership.com">
+        </div>
+        <div class="modal-field">
+          <label for="demo-product">Product Interest</label>
+          <select id="demo-product" name="productInterest">
+            <option value="">Select a product…</option>
+            <option value="Winning at Selling Cars Playbook">Winning at Selling Cars Playbook</option>
+            <option value="Day One — New Hire Training">Day One — New Hire Training</option>
+            <option value="Appraisal Academy" selected>Appraisal Academy</option>
+            <option value="Phone Pop University">Phone Pop University</option>
+            <option value="TradeInTracker.io">TradeInTracker.io</option>
+            <option value="Virtual Used Car Manager">Virtual Used Car Manager</option>
+            <option value="All Products / General Inquiry">All Products / General Inquiry</option>
+          </select>
+        </div>
+        <div class="modal-checkbox">
+          <input type="checkbox" id="demo-text-me" name="textMeOk">
+          <label for="demo-text-me">Text me</label>
+        </div>
+
+        <button type="submit" class="submit" id="demo-submit-btn">Request a Demo</button>
+        <div class="modal-status" id="demo-status"></div>
+      </form>
+    </div>
+
+    <div class="modal-success" id="demo-success">
+      <div class="check">&#10003;</div>
+      <h3>Request Received</h3>
+      <p>Thanks — we'll reach out within 24 hours.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const overlay = document.getElementById('demo-modal-overlay');
+    const openBtn = document.getElementById('open-demo-modal');
+    const closeBtn = document.getElementById('demo-modal-close');
+    const form = document.getElementById('demo-form');
+    const formWrap = document.getElementById('demo-modal-form-wrap');
+    const success = document.getElementById('demo-success');
+    const status = document.getElementById('demo-status');
+    const submitBtn = document.getElementById('demo-submit-btn');
+
+    function openModal() {
+      overlay.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+      overlay.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+
+    openBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closeModal();
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const data = new FormData(form);
+      if (data.get('_hp')) return; // honeypot tripped
+
+      const fullName = (data.get('fullName') || '').toString().trim();
+      const dealershipName = (data.get('dealershipName') || '').toString().trim();
+      const phone = (data.get('phone') || '').toString().trim();
+
+      if (!fullName || !dealershipName || !phone) {
+        status.textContent = 'Please fill in your name, dealership, and phone number.';
+        status.classList.add('error');
+        return;
+      }
+
+      status.textContent = 'Submitting…';
+      status.classList.remove('error');
+      submitBtn.disabled = true;
+
+      try {
+        const resp = await fetch('/.netlify/functions/submit-demo-request', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            fullName,
+            dealershipName,
+            phone,
+            email: (data.get('email') || '').toString().trim(),
+            productInterest: (data.get('productInterest') || '').toString(),
+            textMeOk: data.get('textMeOk') === 'on',
+          }),
+        });
+        const result = await resp.json();
+
+        if (!resp.ok) {
+          throw new Error(result.error || 'Something went wrong.');
+        }
+
+        formWrap.style.display = 'none';
+        success.classList.add('show');
+      } catch (err) {
+        status.textContent = err.message || 'Something went wrong. Please try again.';
+        status.classList.add('error');
+        submitBtn.disabled = false;
+      }
+    });
+  })();
 </script>
 
 </body>
