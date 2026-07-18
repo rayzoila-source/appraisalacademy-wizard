@@ -43,6 +43,7 @@
     --err:#ff5c5c;
   }
   *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
   html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:'Inter',Arial,sans-serif;}
   a{color:inherit;text-decoration:none;}
 
@@ -69,7 +70,27 @@
   }
   h1 .accent{color:var(--accent-bright);}
   h1 .accent-yellow{color:#FFD400;text-decoration:underline;}
-  p.lede{color:var(--text-dim);font-size:15px;line-height:1.7;max-width:640px;margin:0 0 40px;}
+  p.lede{color:var(--text-dim);font-size:15px;line-height:1.7;max-width:640px;margin:0 0 24px;}
+
+  .cta-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:18px;margin:0 0 40px;}
+  .cta-line{
+    font-family:'Orbitron',sans-serif;font-weight:700;letter-spacing:.5px;font-size:15px;
+    color:var(--text);margin:0;text-transform:uppercase;
+  }
+  .cta-buttons{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+  a.cta-start{
+    display:inline-block;font-family:'Orbitron',sans-serif;font-weight:700;letter-spacing:1.5px;
+    text-transform:uppercase;font-size:13px;background:var(--accent-bright);color:#00131f;
+    border:none;padding:14px 28px;cursor:pointer;transition:opacity .15s, transform .1s;
+  }
+  a.cta-start:hover{opacity:.9;}
+  a.cta-contact{
+    display:inline-block;font-family:'Orbitron',sans-serif;font-weight:700;letter-spacing:1.5px;
+    text-transform:uppercase;font-size:12px;background:transparent;color:var(--text-dim);
+    border:1px solid var(--input-border);padding:13px 24px;cursor:pointer;
+    transition:border-color .15s, color .15s;
+  }
+  a.cta-contact:hover{border-color:var(--accent-bright);color:var(--accent-bright);}
 
   .callout{
     border:1px solid var(--border);padding:18px 22px;margin-bottom:44px;
@@ -246,12 +267,20 @@
   <h1>Tell us how you want <span class="accent">your store</span> to run appraisals. <span class="accent-yellow">We'll do the rest.</span></h1>
   <p class="lede">
     Every dealership has trades. Most aren't maximizing them. Appraisal Academy transforms your
-    store into a well-run machine, where every team member becomes a high-level operator —
-    capturing more trades and avoiding under-allowances more consistently. Adopt our proven
-    best-practices playbook for appraisals, or use your own. We get everyone on the team on the
-    same page, trained up, and then held accountable on a daily or weekly basis. Get started with
-    a free trial today.
+    store into a well-run appraisal and acquisition machine, where every team member becomes a
+    high-level operator — capturing more trades and making under-allowances a huge profit center
+    for your store. Adopt our proven best-practices playbook for appraisals, or use your own. We
+    get everyone on the team on the same page, trained up, and then held accountable on a daily
+    or weekly basis.
   </p>
+
+  <div class="cta-row">
+    <p class="cta-line">Get started with a free trial today.</p>
+    <div class="cta-buttons">
+      <a href="#start" class="cta-start">Start Here ↓</a>
+      <a href="https://www.virtualautomotiv.com/contact" class="cta-contact">Contact Us</a>
+    </div>
+  </div>
 
   <div class="callout">
     <b>Takes about 1 minute.</b> Can be filled out by dealership staff or a Virtual Automotiv
@@ -262,7 +291,7 @@
   <form id="dealer-form" novalidate>
     <input type="text" name="_hp" class="honeypot" tabindex="-1" autocomplete="off">
 
-    <div class="field-panel required">
+    <div class="field-panel required" id="start" style="scroll-margin-top:24px;">
       <div class="field-head">
         <span class="field-index">01</span>
         <label>Which appraisal tool do you use? <span class="req">*</span></label>
