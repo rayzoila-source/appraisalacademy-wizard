@@ -1,0 +1,5 @@
+<svg width="170" height="40" viewBox="0 0 170 40" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="17" cy="20" r="14" fill="#0B2D4A"/>
+  <path d="M10 21 L15 26 L24 13" stroke="#2FD3C4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <text x="38" y="27" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="800" fill="#0B2D4A">Accu<tspan fill="#2FD3C4">Trade</tspan></text>
+</svg>

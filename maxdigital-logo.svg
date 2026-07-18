@@ -1,0 +1,5 @@
+<svg width="170" height="40" viewBox="0 0 170 40" xmlns="http://www.w3.org/2000/svg">
+  <rect x="4" y="6" width="26" height="26" rx="6" fill="#00A99D"/>
+  <path d="M9 24 L9 14 L15 22 L21 14 L21 24" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <text x="38" y="27" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="800" fill="#0F2A2A">MAX<tspan fill="#00A99D" font-weight="600"> Digital</tspan></text>
+</svg>
