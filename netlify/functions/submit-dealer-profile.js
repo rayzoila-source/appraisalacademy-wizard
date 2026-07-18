@@ -27,6 +27,22 @@ const FIELDS = {
 
 const REQUIRED = ["name", "appraisalTool", "crm", "dms", "firstEntry", "pricer", "negotiator", "keysPlacement", "contactName", "contactEmail"];
 
+// Human-readable labels for fields that offer an "Other" choice with a
+// fill-in-the-blank follow-up (e.g. "<field>Other" in the payload). When the
+// select value is "Other" and the follow-up text is present, we fold it into
+// Notes (rather than writing the free text into the singleSelect field
+// itself, which Airtable would reject since typecast is off).
+const OTHER_LABELS = {
+  appraisalTool: "Appraisal Tool",
+  crm: "CRM",
+  dms: "DMS",
+  firstEntry: "Starts the Appraisal",
+  pricer: "Prices the Trade",
+  negotiator: "Negotiates with Customer",
+  stockIn: "Moves It to the Boneyard",
+  keysPlacement: "Keys Placed",
+};
+
 exports.handler = async (event) => {
   const headers = {
     "Content-Type": "application/json",
@@ -64,10 +80,27 @@ exports.handler = async (event) => {
     return { statusCode: 400, headers, body: JSON.stringify({ error: "Rejected" }) };
   }
 
+  // Fold any "Other" fill-in-the-blank text into Notes, labeled by question,
+  // so the specific detail isn't lost even though the singleSelect field
+  // itself just stores "Other".
+  const extraNotes = [];
+  Object.keys(OTHER_LABELS).forEach((key) => {
+    if (payload[key] === "Other") {
+      const custom = payload[key + "Other"];
+      if (custom && String(custom).trim()) {
+        extraNotes.push(OTHER_LABELS[key] + ": " + String(custom).trim());
+      }
+    }
+  });
+  let notesValue = payload.notes ? String(payload.notes).trim() : "";
+  if (extraNotes.length) {
+    notesValue = notesValue ? notesValue + "\n" + extraNotes.join("\n") : extraNotes.join("\n");
+  }
+
   const fields = {};
   if (payload.name) fields[FIELDS.name] = String(payload.name).trim();
   if (payload.website) fields[FIELDS.website] = String(payload.website).trim();
-  if (payload.notes) fields[FIELDS.notes] = String(payload.notes).trim();
+  if (notesValue) fields[FIELDS.notes] = notesValue;
   if (payload.appraisalTool) fields[FIELDS.appraisalTool] = payload.appraisalTool;
   if (payload.crm) fields[FIELDS.crm] = payload.crm;
   if (payload.dms) fields[FIELDS.dms] = payload.dms;
