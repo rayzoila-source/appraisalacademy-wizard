@@ -11,9 +11,12 @@
   Deployed via GitHub (rayzoila-source/appraisalacademy-wizard) → Netlify
   (appraisalacademy-wizard project) → wizard.appraisalacademy.net.
 
-  Visual language matches tsb.virtualautomotiv.com / tsb.grader.virtualautomotiv.com:
-  Orbitron for headings/labels, Inter for body/inputs, dark HUD dashboard
-  card panels with accent-colored index chips.
+  Appraisal tool question is Q1 and uses a 4-button logo choice group
+  (vAuto / AutoHub / Other / Corporate) instead of a dropdown. Logos are
+  vAuto's and AutoHub's own official brand SVGs (vauto-logo.svg,
+  autohub-logo.svg), pulled from their sites, shown on white chips so they
+  read correctly on the dark background. "Other" and "Corporate" use
+  generic inline icons since there's no single brand to represent.
 -->
 <!DOCTYPE html>
 <html lang="en" class="dark">
@@ -114,6 +117,34 @@
   select option{background:#15161a;color:var(--text);}
   ::placeholder{color:#5c6066;}
 
+  /* Choice-button group (appraisal tool) */
+  .choice-group{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
+  }
+  @media (max-width:640px){ .choice-group{ grid-template-columns:repeat(2,1fr); } }
+  .choice-input{position:absolute;opacity:0;width:0;height:0;pointer-events:none;}
+  .choice-card{
+    display:flex;flex-direction:column;align-items:center;gap:10px;
+    background:var(--input-bg);border:1px solid var(--input-border);
+    padding:16px 10px;cursor:pointer;transition:border-color .15s, background .15s, box-shadow .15s;
+    text-align:center;
+  }
+  .choice-card:hover{border-color:rgba(0,175,255,0.5);}
+  .choice-input:checked + .choice-card{
+    border-color:var(--accent-bright);background:rgba(0,175,255,0.08);
+    box-shadow:0 0 0 1px var(--accent-bright);
+  }
+  .choice-chip{
+    width:48px;height:48px;border-radius:8px;background:#ffffff;
+    display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;
+  }
+  .choice-chip img{width:34px;height:34px;object-fit:contain;}
+  .choice-chip.generic{background:var(--panel);border:1px solid var(--input-border);}
+  .choice-chip.generic svg{width:24px;height:24px;stroke:var(--accent-bright);}
+  .choice-label{
+    font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--text);
+  }
+
   .honeypot{position:absolute;left:-9999px;opacity:0;pointer-events:none;height:0;overflow:hidden;}
 
   .submit-row{display:flex;align-items:center;gap:16px;margin-top:8px;}
@@ -180,6 +211,47 @@
     <div class="field-panel required">
       <div class="field-head">
         <span class="field-index">01</span>
+        <label>Which appraisal tool do you use? <span class="req">*</span></label>
+      </div>
+      <div class="choice-group" role="radiogroup" aria-label="Which appraisal tool do you use?">
+        <label>
+          <input class="choice-input" type="radio" name="appraisalTool" value="vAuto" required>
+          <div class="choice-card">
+            <span class="choice-chip"><img src="vauto-logo.svg" alt="vAuto"></span>
+            <span class="choice-label">vAuto</span>
+          </div>
+        </label>
+        <label>
+          <input class="choice-input" type="radio" name="appraisalTool" value="AutoHub" required>
+          <div class="choice-card">
+            <span class="choice-chip"><img src="autohub-logo.svg" alt="AutoHub" style="width:40px;height:auto;"></span>
+            <span class="choice-label">AutoHub</span>
+          </div>
+        </label>
+        <label>
+          <input class="choice-input" type="radio" name="appraisalTool" value="Other" required>
+          <div class="choice-card">
+            <span class="choice-chip generic">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2.5 2-2.5 3.5"></path><line x1="12" y1="16.5" x2="12" y2="16.5"></line></svg>
+            </span>
+            <span class="choice-label">Other</span>
+          </div>
+        </label>
+        <label>
+          <input class="choice-input" type="radio" name="appraisalTool" value="Corporate" required>
+          <div class="choice-card">
+            <span class="choice-chip generic">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18"></rect><line x1="8" y1="7" x2="8" y2="7"></line><line x1="12" y1="7" x2="12" y2="7"></line><line x1="16" y1="7" x2="16" y2="7"></line><line x1="8" y1="11" x2="8" y2="11"></line><line x1="12" y1="11" x2="12" y2="11"></line><line x1="16" y1="11" x2="16" y2="11"></line><line x1="8" y1="15" x2="8" y2="15"></line><line x1="12" y1="15" x2="12" y2="15"></line><line x1="16" y1="15" x2="16" y2="15"></line></svg>
+            </span>
+            <span class="choice-label">Corporate</span>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <div class="field-panel required">
+      <div class="field-head">
+        <span class="field-index">02</span>
         <label for="f-name">Dealership Name <span class="req">*</span></label>
       </div>
       <input type="text" id="f-name" name="name" required autocomplete="organization">
@@ -187,7 +259,7 @@
 
     <div class="field-panel">
       <div class="field-head">
-        <span class="field-index">02</span>
+        <span class="field-index">03</span>
         <label for="f-website">Dealership Website <span class="opt">(optional)</span></label>
       </div>
       <input type="url" id="f-website" name="website" placeholder="https://" autocomplete="url">
@@ -195,23 +267,10 @@
 
     <div class="field-panel">
       <div class="field-head">
-        <span class="field-index">03</span>
+        <span class="field-index">04</span>
         <label for="f-notes">Anything else we should know about your process? <span class="opt">(optional)</span></label>
       </div>
       <textarea id="f-notes" name="notes"></textarea>
-    </div>
-
-    <div class="field-panel required">
-      <div class="field-head">
-        <span class="field-index">04</span>
-        <label for="f-tool">Which appraisal tool do you use? <span class="req">*</span></label>
-      </div>
-      <select id="f-tool" name="appraisalTool" required>
-        <option value="" disabled selected>Select one…</option>
-        <option value="AutoHub with vAuto">AutoHub with vAuto</option>
-        <option value="vAuto Only">vAuto Only</option>
-        <option value="Other Appraisal Tool">Other Appraisal Tool</option>
-      </select>
     </div>
 
     <div class="field-panel required">
