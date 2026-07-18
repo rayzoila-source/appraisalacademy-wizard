@@ -20,9 +20,12 @@ const FIELDS = {
   negotiator: "fldWmYRM1zzaFSias", // singleSelect
   stockIn: "fldrawfbiSxFjGIXE", // singleSelect
   keysPlacement: "fldqNNpVi0rpkUnQ2", // singleSelect
+  contactName: "fldSgphtQ7adztzg0", // singleLineText
+  contactEmail: "fldckDJtX94GKZwwS", // email
+  contactPhone: "fld066OnwSUoWMcZO", // phoneNumber
 };
 
-const REQUIRED = ["name", "appraisalTool", "crm", "dms", "firstEntry", "pricer", "negotiator", "keysPlacement"];
+const REQUIRED = ["name", "appraisalTool", "crm", "dms", "firstEntry", "pricer", "negotiator", "keysPlacement", "contactName", "contactEmail"];
 
 exports.handler = async (event) => {
   const headers = {
@@ -73,6 +76,9 @@ exports.handler = async (event) => {
   if (payload.negotiator) fields[FIELDS.negotiator] = payload.negotiator;
   if (payload.stockIn) fields[FIELDS.stockIn] = payload.stockIn;
   if (payload.keysPlacement) fields[FIELDS.keysPlacement] = payload.keysPlacement;
+  if (payload.contactName) fields[FIELDS.contactName] = String(payload.contactName).trim();
+  if (payload.contactEmail) fields[FIELDS.contactEmail] = String(payload.contactEmail).trim();
+  if (payload.contactPhone) fields[FIELDS.contactPhone] = String(payload.contactPhone).trim();
 
   try {
     const resp = await fetch(
@@ -88,24 +94,24 @@ exports.handler = async (event) => {
           typecast: false,
         }),
       }
-      );
+    );
 
-  const data = await resp.json();
+    const data = await resp.json();
 
-  if (!resp.ok) {
-    console.error("Airtable error:", JSON.stringify(data));
+    if (!resp.ok) {
+      console.error("Airtable error:", JSON.stringify(data));
+      return {
+        statusCode: 502,
+        headers,
+        body: JSON.stringify({ error: "Could not save your submission. Please try again." }),
+      };
+    }
+
     return {
-      statusCode: 502,
+      statusCode: 200,
       headers,
-      body: JSON.stringify({ error: "Could not save your submission. Please try again." }),
+      body: JSON.stringify({ ok: true, id: data.records?.[0]?.id }),
     };
-  }
-
-  return {
-    statusCode: 200,
-    headers,
-    body: JSON.stringify({ ok: true, id: data.records?.[0]?.id }),
-  };
   } catch (err) {
     console.error("Submit error:", err);
     return {
