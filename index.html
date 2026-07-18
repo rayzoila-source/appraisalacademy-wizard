@@ -143,6 +143,13 @@
     display:flex;align-items:center;justify-content:center;flex-shrink:0;
   }
   .choice-chip img{height:70px;width:auto;max-width:160px;object-fit:contain;}
+  /* A handful of brand marks (AutoHub, Vincue, CDK, Drive Centric, Firstlook)
+     use dark navy/black strokes designed for a white background. Now that
+     they float free with no plate behind them, a soft white halo (not a box)
+     keeps the dark linework legible against the dark page. */
+  .choice-chip img.logo-glow{
+    filter: drop-shadow(0 0 1.5px #fff) drop-shadow(0 0 1.5px #fff) drop-shadow(0 0 3px rgba(255,255,255,.85)) drop-shadow(0 0 3px rgba(255,255,255,.85));
+  }
   .choice-chip.generic svg{width:50px;height:50px;stroke:var(--accent-bright);}
   .choice-label{
     font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--text);
@@ -269,7 +276,7 @@
         <label>
           <input class="choice-input" type="radio" name="appraisalTool" value="AutoHub" required>
           <div class="choice-card">
-            <span class="choice-chip"><img src="autohub-logo.svg" alt="AutoHub"></span>
+            <span class="choice-chip"><img class="logo-glow" src="autohub-logo.svg" alt="AutoHub"></span>
             <span class="choice-label">AutoHub</span>
           </div>
         </label>
@@ -290,14 +297,14 @@
         <label>
           <input class="choice-input" type="radio" name="appraisalTool" value="Vincue" required>
           <div class="choice-card">
-            <span class="choice-chip"><img src="vincue-logo.png" alt="Vincue"></span>
+            <span class="choice-chip"><img class="logo-glow" src="vincue-logo.png" alt="Vincue"></span>
             <span class="choice-label">Vincue</span>
           </div>
         </label>
         <label>
           <input class="choice-input" type="radio" name="appraisalTool" value="Firstlook" required>
           <div class="choice-card">
-            <span class="choice-chip"><img src="firstlook-logo.svg" alt="Firstlook"></span>
+            <span class="choice-chip"><img class="logo-glow" src="firstlook-logo.svg" alt="Firstlook"></span>
             <span class="choice-label">Firstlook</span>
           </div>
         </label>
@@ -341,7 +348,7 @@
         <label>
           <input class="choice-input" type="radio" name="crm" value="Drive Centric" required>
           <div class="choice-card">
-            <span class="choice-chip"><img src="drivecentric-logo.svg" alt="Drive Centric"></span>
+            <span class="choice-chip"><img class="logo-glow" src="drivecentric-logo.svg" alt="Drive Centric"></span>
             <span class="choice-label">Drive Centric</span>
           </div>
         </label>
@@ -406,7 +413,7 @@
         <label>
           <input class="choice-input" type="radio" name="dms" value="CDK" required>
           <div class="choice-card">
-            <span class="choice-chip"><img src="cdk-logo.png" alt="CDK"></span>
+            <span class="choice-chip"><img class="logo-glow" src="cdk-logo.png" alt="CDK"></span>
             <span class="choice-label">CDK</span>
           </div>
         </label>
