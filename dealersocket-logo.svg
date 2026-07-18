@@ -1,0 +1,7 @@
+<svg width="170" height="40" viewBox="0 0 170 40" xmlns="http://www.w3.org/2000/svg">
+  <rect x="4" y="10" width="26" height="20" rx="3" fill="#0B3B60"/>
+  <circle cx="12" cy="20" r="2.4" fill="#ffffff"/>
+  <circle cx="22" cy="20" r="2.4" fill="#ffffff"/>
+  <rect x="15" y="2" width="4" height="10" rx="1.5" fill="#0B3B60"/>
+  <text x="38" y="27" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#0B3B60">Dealer<tspan fill="#F26C22">Socket</tspan></text>
+</svg>
